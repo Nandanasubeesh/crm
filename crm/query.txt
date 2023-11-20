@@ -1,0 +1,34 @@
+from django.db import models
+
+# Create your models here.
+class Employes(models.Model):
+    name=models.CharField(max_length=100)
+    department=models.CharField(max_length=100)
+    salary=models.PositiveIntegerField()
+    email=models.EmailField(unique=True)
+    age=models.PositiveIntegerField()
+    contact=models.CharField(null=True,max_length=10)
+-------crm query for creating a new object-----------
+Employes.objects.create(name="akash",department="hr",salary=20000,email="akash@gmail.com",age=29,contact="12345678909")
+
+--------------crm query for fetching all records-----------------
+>qs=Employes.objects.all()
+
+------------orm query for filtering employe records------------
+qs=Employes.objects.filter(department="hr")
+qs=Employes.objects.filter(salary__gte=50000)
+__gte=>greater than equal to
+__lte=>less than or equal to
+gt=>greater than
+lt=>less than
+
+---------orm query for exclude an object---------
+qs=Employes.objects.exclude(department="hr")
+-----------orm query for update----------
+Employes.objects.filter(id=2).update(contact="new contact",age=32)
+
+-----------orm query for delete----------
+Employes.objects.filter(id=1).delete()
+----------orm query for sorting ------------
+qs=Employes.objects.all().order_by("salary")(----ascending order-----)
+qs=Employes.objects.all().order_by("-salary")(--------descending order------)
